@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_custom_purchase" model="ir.module.category">
+        <field name="name">Custom Purchase Security</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="group_procurement_team" model="res.groups">
+        <field name="name">Procurement Team</field>
+        <field name="category_id" ref="module_category_custom_purchase" />
+    </record>
+
+    <record id="group_coo" model="res.groups">
+        <field name="name">Chief Operating Officer (COO)</field>
+        <field name="category_id" ref="module_category_custom_purchase" />
+    </record>
+
+    <record id="group_md" model="res.groups">
+        <field name="name">Managing Director (MD)</field>
+        <field name="category_id" ref="module_category_custom_purchase" />
+    </record>
+
+
+    <record id="group_vendor" model="res.groups">
+        <field name="name">Vendor</field>
+        <field name="category_id" ref="module_category_custom_purchase" />
+        <field name="implied_ids" eval="[(4, ref('base.group_portal'))]" />
+    </record>
+
+</odoo>

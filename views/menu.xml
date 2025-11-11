@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="custom_purchase_menu" name="CP" sequence="10" />
+    <menuitem id="custom_orders_menu"
+        name="Orders"
+        parent="custom_purchase_menu"
+        action="action_custom_order"
+    />
+    
+</odoo>

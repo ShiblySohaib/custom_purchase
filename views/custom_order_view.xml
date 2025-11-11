@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="custom_order_form" model="ir.ui.view">
+        <field name="name">custom.purchase.order.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <data>
+                
+                <xpath expr="//form/header" position="replace">
+                    <header>
+                        <button name="button_send" type="object" invisible="state != 'draft'"
+                            string="Send" class="oe_highlight"
+                            groups="custom_purchase.group_coo,custom_purchase.group_md"
+                        />
+                        <button name="button_confirm" type="object" invisible="state != 'sent'"
+                            string="Confirm Order" class="oe_highlight"
+                            groups="custom_purchase.group_coo,custom_purchase.group_md"
+                        />
+
+                        <button name="button_approve" type="object" invisible="state != 'confirmed'"
+                            string="Approve Order" class="oe_highlight"
+                            groups="custom_purchase.group_coo,custom_purchase.group_md,base.group_system"
+                        />
+
+                        <button name="action_create_invoice" string="Create Bill" type="object"
+                            class="oe_highlight" context="{'create_bill':True}"
+                            invisible="state not in ('approved', 'done') or invoice_status in ('no', 'invoiced')"
+                        />
+
+                        <button name="button_done" type="object" string="Purchase"
+                            invisible="state != 'approved'"
+                            class="oe_highlight"
+                            groups="custom_purchase.group_coo,custom_purchase.group_md,custom_purchase.group_procurement_team,base.group_system"
+                            data-hotkey="l" />
+
+                        <button name="button_draft" invisible="state != 'canceled'"
+                            string="Set to Draft"
+                            class="oe_highlight"
+                            type="object" />
+
+                        <button name="button_cancel"
+                            invisible="state not in ('draft', 'confirmed', 'sent', 'approved')"
+                            string="Cancel" type="object" />
+
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="draft,sent,confirmed,approved"
+                            readonly="1"/>
+
+                    </header>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="state" readonly="0" />
+                </xpath>
+                
+            </data>
+
+        </field>
+    </record>
+
+    <!-- <record id="custom_order_tree" model="ir.ui.view">
+        <field name="name">custom.purchase.order.tree</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree" />
+        <field name="arch" type="xml">
+            
+        </field>
+    </record> -->
+
+    <record id="action_custom_order" model="ir.actions.act_window">
+        <field name="name">Custom Purchase Orders</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
