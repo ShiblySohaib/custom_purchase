@@ -1,0 +1,101 @@
+*{
+    /* border: 1px solid black; */
+    font-family: 'Georgia', serif;
+    font-size: 2px;
+}
+
+
+.logo-container {
+  text-align: end;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.logo-container img {
+  height: auto;
+  max-height: 140px;
+  object-fit: contain;
+  display: inline-block;
+}
+
+
+
+table{
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+#po-issued-to{
+    width: 90%;
+}
+
+#po-issued-to tr td:first-child {
+    width: 30%;
+}
+
+#po-issued-to tr td:last-child {
+    width: 70%;
+}
+
+#po-issued-to tr td:last-child {
+    width: 70%;
+}
+
+#billed-to{
+    width: 100%;
+    margin-right: 5px;
+}
+
+#subject{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+th{
+    background-color: gray;
+    color: black;
+    text-align: center;
+    padding: 3px;
+    border: 1px solid black;
+}
+
+
+#details table{
+    width: 100%;
+}
+
+#details th{
+    background-color: gray;
+    color: black;
+    text-align: center;
+    padding: 3px;
+}
+
+#details th, 
+#details td{
+    border: 1px solid black;
+}
+
+#details tr td:last-child{
+    text-align: right;
+}
+
+#written-details table{
+    width: 100%;
+}
+
+#written-details table, 
+#written-details th, 
+#written-details td{
+    border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#written-details tr td:first-child {
+    width: 40%;
+}
+
+#written-details tr td:last-child {
+    width: 60%;
+}

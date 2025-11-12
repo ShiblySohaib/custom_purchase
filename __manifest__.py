@@ -8,5 +8,7 @@
         "security/security.xml",
         "views/custom_order_view.xml",
         "views/menu.xml",
+        "reports/report.xml",
+        "reports/custom_po_report.xml",
     ],
 }

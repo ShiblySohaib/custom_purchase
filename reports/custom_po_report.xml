@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_custom_purchase_order_document">
+        <t t-call="web.basic_layout">
+            <link rel="stylesheet" href="/custom_purchase/static/src/css/styles.css" />
+            <div class="page">
+                <div class="logo-container">
+                    <img src="/custom_purchase/static/img/logo.png" alt="Banner" />
+                </div>
+
+                <div id="top-section" class="container-fluid">
+                    <div class="row" style="margin-bottom: 30px;">
+                        <div class="col-7 text-start">
+                            <div>
+                                <h2 style="padding-bottom: 30px;">Purchase Order</h2>
+                            </div>
+                        </div>
+                        <div class="col-5 text-start"> Date: <span t-field="o.date_order" /><br />
+                            PO No: <span t-field="o.name" /><br /> QTN Ref: <span
+                                t-esc="o.partner_ref or ''" /><br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-7 text-start">
+                            <table id="po-issued-to">
+                                <th colspan="2">PO Issued To</th>
+                                <tr>
+                                    <td>Vendor Name</td>
+                                    <td>
+                                        <span t-esc="o.partner_id.name or ''" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td>
+                                        <span t-esc="o.partner_id.street or ''" />
+                                        <t t-if="o.partner_id.street2">
+                                            <br />
+                                            <span t-esc="o.partner_id.street2" />
+                                        </t>
+                                        <t t-if="o.partner_id.city">
+                                            <br />
+                                            <span t-esc="o.partner_id.city" />
+                                        </t>
+                                        <t t-if="o.partner_id.state_id">
+                                            <br />
+                                            <span t-esc="o.partner_id.state_id.name" />
+                                        </t>
+                                        <t t-if="o.partner_id.country_id">
+                                            <br />
+                                            <span t-esc="o.partner_id.country_id.name" />
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Phone</td>
+                                    <td>
+                                        <span t-esc="o.partner_id.phone or ''" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mobile</td>
+                                    <td>
+                                        <span t-esc="o.partner_id.mobile or ''" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>
+                                        <span t-esc="o.partner_id.email or ''" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <b>Attention:</b>
+                        </div>
+                        <div class="col-5 text-start">
+                            <table id="billed-to">
+                                <th>Billed To</th>
+                                <tr>
+                                    <td>
+                                        <span t-esc="o.company_id.name or ''" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span t-esc="o.company_id.street or ''" />
+                                        <t t-if="o.company_id.street2">
+                                            <span t-esc="o.company_id.street2" />
+                                        </t>
+                                        <t t-if="o.company_id.city">
+                                            <span t-esc="o.company_id.city" />
+                                        </t>
+                                        <t t-if="o.company_id.state_id">
+                                            <span t-esc="o.company_id.state_id.name" />
+                                        </t>
+                                        <t t-if="o.company_id.country_id">
+                                            <span t-esc="o.company_id.country_id.name" />
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span t-esc="o.company_id.phone or ''" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="subject">
+                    <u>
+                        <h4>Subject: Dummy subject</h4>
+                    </u>
+                </div>
+
+                <div id="details">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>UOM</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>T.Price(Tk)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.order_line" t-as="l">
+                                <tr>
+                                    <td>
+                                        <span
+                                            t-esc="l.name or (l.product_id and l.product_id.name) or ''" />
+                                    </td>
+                                    <td>
+                                        <span t-esc="l.product_uom.name or ''" />
+                                    </td>
+                                    <td>
+                                        <span t-field="l.product_qty" />
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="l.price_unit" />
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="l.price_subtotal" />
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr style="text-align: center;">
+                                <td colspan="4" style="font-weight: bold;">Sub - Total</td>
+                                <td>
+                                    <span t-field="o.amount_untaxed" />
+                                </td>
+                            </tr>
+                            <tr style="text-align: center;">
+                                <td colspan="4" style="font-weight: bold;">VAT</td>
+                                <td>
+                                    <span t-field="o.amount_tax" />
+                                </td>
+                            </tr>
+                            <tr style="text-align: center;">
+                                <td colspan="4" style="font-weight: bold;">Grand Total Including VAT</td>
+                                <td>
+                                    <span t-field="o.amount_total" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="written-details" class="container">
+                    <p style="font-weight: bold;"> Total Price: <span t-field="o.amount_total" />
+                    </p>
+                    <p style="font-weight: bold;"> In Word: <span
+                            t-esc="o.amount_total and o.currency_id.amount_to_text(o.amount_total) or ''" />
+                    </p>
+
+                    <div class="container">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: bold;">Standard Terms and Conditions:</td>
+                                    <td>VAT and TAX: Compiled as per Govt Rules</td>
+                                </tr>
+                                <tr>
+                                    <td>Payment Terms</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Bill/Challan:</td>
+                                    <td style="font-weight: bold;"></td>
+                                </tr>
+                                <tr>
+                                    <td>Delivery Location:</td>
+                                    <td>
+                                        <span t-esc="o.partner_id.street or ''" />
+                                        <t t-if="o.partner_id.street2">
+                                            <br />
+                                            <span t-esc="o.partner_id.street2" />
+                                        </t>
+                                        <t t-if="o.partner_id.city">
+                                            <br />
+                                            <span t-esc="o.partner_id.city" />
+                                        </t>
+                                        <t t-if="o.partner_id.state_id">
+                                            <br />
+                                            <span t-esc="o.partner_id.state_id.name" />
+                                        </t>
+                                        <t t-if="o.partner_id.country_id">
+                                            <br />
+                                            <span t-esc="o.partner_id.country_id.name" />
+                                        </t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <p style="margin-top: 30px; margin-bottom: 100px;">
+                    If the mentioned terms and conditions are acceptable to you, you are requested
+                    to sign the duplicate copy as a token of your acceptance.
+                </p>
+
+                <div id="signature-section" class="container-fluid">
+                    <div class="row">
+                        <div class="col-6 text-start">
+                            <p>__________________________</p>
+                            
+                                <span
+                                t-esc="env.ref('custom_purchase.group_coo').users and env.ref('custom_purchase.group_coo').users[0].name or ''" /><br />
+                            
+                                <b>
+                            COO</b><br /> cc: CFO <span t-esc="o.company_id.name or ''" />
+
+                        </div>
+                        <div class="col-6 text-start">
+                            <p>__________________________</p>
+                            
+                                <span
+                                t-esc="env.ref('custom_purchase.group_md').users and env.ref('custom_purchase.group_md').users[0].name or ''" /><br />
+        
+        <b>Managing
+                            Director</b><br /> cc: CFO <span t-esc="o.company_id.name or ''" />
+
+                        </div>
+                        <br />
+                        <p>
+                            <div>
+                                <b>
+                                    <span t-esc="o.company_id.name or ''" />
+                                </b>
+                            </div>
+                            <div>
+                                <span t-esc="o.company_id.street or ''" />
+                                <t t-if="o.company_id.street2">
+                                    <span t-esc="o.company_id.street2" />, </t>
+                                <t t-if="o.company_id.city">
+                                    <span t-esc="o.company_id.city" />, </t>
+                                <t t-if="o.company_id.state_id">
+                                    <span t-esc="o.company_id.state_id.name" />, </t>
+                                <t t-if="o.company_id.country_id">
+                                    <span t-esc="o.company_id.country_id.name" />
+                                </t>
+                            </div>
+                            <div> tel: <span t-esc="o.company_id.phone or ''" />, cell: <span
+                                    t-esc="o.company_id.mobile or ''" />, E-mail: <span
+                                    t-esc="o.company_id.email or ''" />
+                            </div>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="report_custom_purchase_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="custom_purchase.report_custom_purchase_order_document" />
+            </t>
+        </t>
+    </template>
+
+
+</odoo>
