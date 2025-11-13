@@ -38,6 +38,9 @@
                 <xpath expr="//sheet//field[@name='notes']" position="attributes">
                     <attribute name="readonly">state != 'draft'</attribute>
                 </xpath>
+                <xpath expr="//sheet//field[@name='origin']" position="attributes">
+                    <attribute name="readonly">state != 'draft'</attribute>
+                </xpath>
                 <xpath expr="//form/header" position="replace">
                     <header>
                         <button name="button_send" type="object" invisible="state != 'draft'"
