@@ -4,6 +4,8 @@
         <field name="name">custom.purchase.order.form</field>
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="mode">primary</field>
+        <field name="priority">99</field>
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//sheet//field[@name='partner_id']" position="attributes">
@@ -84,8 +86,6 @@
                 </xpath>
 
 
-
-
             </data>
 
         </field>
@@ -96,6 +96,7 @@
         <field name="name">Custom Purchase Orders</field>
         <field name="res_model">purchase.order</field>
         <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="custom_order_form" />
     </record>
 
 </odoo>
